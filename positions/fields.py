@@ -9,6 +9,20 @@ try:
 except ImportError:
     now = datetime.datetime.now
 
+try:
+    unicode = unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    str = str
+    unicode = str
+    bytes = bytes
+    basestring = (str,bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    str = str
+    unicode = unicode
+    bytes = str
+    basestring = basestring
 
 class PositionField(models.IntegerField):
     def __init__(self, verbose_name=None, name=None, default=-1, collection=None, unique_for_field=None, unique_for_fields=None, *args, **kwargs):
